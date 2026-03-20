@@ -311,6 +311,8 @@ function MatchEditForm({
         }))
   );
   const [saving, setSaving] = useState(false);
+  const [savingIdx, setSavingIdx] = useState<number | null>(null);
+  const [savedIdx, setSavedIdx] = useState<Set<number>>(new Set());
 
   function updateResult(idx: number, field: string, value: unknown) {
     setResults((prev) => {
@@ -366,7 +368,16 @@ function MatchEditForm({
     });
   }
 
-  async function handleSave() {
+  async function handleSavePartij(idx: number) {
+    setSavingIdx(idx);
+    // Save all results (including the one just edited)
+    await onSave(results);
+    setSavingIdx(null);
+    setSavedIdx((prev) => new Set(prev).add(idx));
+    setTimeout(() => setSavedIdx((prev) => { const next = new Set(prev); next.delete(idx); return next; }), 2000);
+  }
+
+  async function handleSaveAll() {
     setSaving(true);
     await onSave(results);
     setSaving(false);
@@ -476,16 +487,26 @@ function MatchEditForm({
               </button>
             )}
           </div>
+
+          {/* Save per partij */}
+          <button
+            onClick={() => handleSavePartij(i)}
+            disabled={savingIdx === i}
+            className="w-full py-1.5 rounded text-white font-semibold text-xs mt-2"
+            style={{ background: savedIdx.has(i) ? "#22c55e" : savingIdx === i ? "#b0b1c3" : "#1e3a6e" }}
+          >
+            {savedIdx.has(i) ? "Opgeslagen!" : savingIdx === i ? "Opslaan..." : `Partij ${i + 1} opslaan`}
+          </button>
         </div>
       ))}
 
       <button
-        onClick={handleSave}
+        onClick={handleSaveAll}
         disabled={saving}
         className="w-full py-2.5 rounded-lg text-white font-bold text-sm"
         style={{ background: saving ? "#b0b1c3" : "#ee7411" }}
       >
-        {saving ? "Opslaan..." : "Uitslag opslaan"}
+        {saving ? "Opslaan..." : "Alles opslaan"}
       </button>
     </div>
   );
