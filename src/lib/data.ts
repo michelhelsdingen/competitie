@@ -122,6 +122,15 @@ export const SCHEDULE: Omit<Match, "results">[] = [
   { id: "r6m2", round: 6, date: "2026-05-01", time: "19:00", homeTeamId: "ltc3", awayTeamId: "ltc2", court: "Baan 2" },
 ];
 
+export const ROUND_INFO: Record<number, { courts: string; note?: string }> = {
+  1: { courts: "2 banen" },
+  2: { courts: "1,5 baan", note: "Na elkaar" },
+  3: { courts: "2 banen" },
+  4: { courts: "2 banen", note: "Return" },
+  5: { courts: "1,5 baan", note: "Return, na elkaar" },
+  6: { courts: "Nader te bepalen", note: "Inhaaldag" },
+};
+
 export function getTeam(id: string): Team | undefined {
   return TEAMS.find((t) => t.id === id);
 }
