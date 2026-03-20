@@ -69,19 +69,19 @@ export default function Home() {
           Stand
         </h2>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-xs">
             <thead>
-              <tr className="text-xs text-gray-500 border-b">
-                <th className="text-left pl-5 py-2 w-8"></th>
-                <th className="text-left py-2">TEAM</th>
-                <th className="text-center py-2 w-8">GS</th>
-                <th className="text-center py-2 w-8">W</th>
-                <th className="text-center py-2 w-8">G</th>
-                <th className="text-center py-2 w-8">V</th>
-                <th className="text-center py-2 w-8 font-bold">PT</th>
-                <th className="text-center py-2 w-12">W</th>
-                <th className="text-center py-2 w-12">S</th>
-                <th className="text-center py-2 w-14">GM</th>
+              <tr className="text-[10px] text-gray-500 border-b">
+                <th className="text-left pl-3 pr-1 py-1.5 w-5">#</th>
+                <th className="text-left py-1.5 pr-1">TEAM</th>
+                <th className="text-center py-1.5 px-0.5">GS</th>
+                <th className="text-center py-1.5 px-0.5">W</th>
+                <th className="text-center py-1.5 px-0.5">G</th>
+                <th className="text-center py-1.5 px-0.5">V</th>
+                <th className="text-center py-1.5 px-0.5 font-bold">PT</th>
+                <th className="text-center py-1.5 px-0.5">W</th>
+                <th className="text-center py-1.5 px-0.5">S</th>
+                <th className="text-center py-1.5 px-0.5 pr-3">GM</th>
               </tr>
             </thead>
             <tbody>
@@ -99,26 +99,20 @@ export default function Home() {
                         : ""
                     }`}
                   >
-                    <td className="text-center pl-5 py-2.5 font-bold">{i + 1}</td>
-                    <td className="py-2.5 font-semibold">
+                    <td className="pl-3 pr-1 py-2 font-bold">{i + 1}</td>
+                    <td className="py-2 pr-1 font-semibold whitespace-nowrap">
                       <span className={isKei && i === 0 ? "text-white" : isKei ? "text-kei-blauw" : ""}>
                         {team.name}
                       </span>
                     </td>
-                    <td className="text-center py-2.5">{s.played}</td>
-                    <td className="text-center py-2.5">{s.won}</td>
-                    <td className="text-center py-2.5">{s.drawn}</td>
-                    <td className="text-center py-2.5">{s.lost}</td>
-                    <td className="text-center py-2.5 font-bold">{s.points}</td>
-                    <td className="text-center py-2.5">
-                      {s.matchesWon}-{s.matchesLost}
-                    </td>
-                    <td className="text-center py-2.5">
-                      {s.setsWon}-{s.setsLost}
-                    </td>
-                    <td className="text-center py-2.5">
-                      {s.gamesWon}-{s.gamesLost}
-                    </td>
+                    <td className="text-center py-2 px-0.5">{s.played}</td>
+                    <td className="text-center py-2 px-0.5">{s.won}</td>
+                    <td className="text-center py-2 px-0.5">{s.drawn}</td>
+                    <td className="text-center py-2 px-0.5">{s.lost}</td>
+                    <td className="text-center py-2 px-0.5 font-bold">{s.points}</td>
+                    <td className="text-center py-2 px-0.5 whitespace-nowrap">{s.matchesWon}-{s.matchesLost}</td>
+                    <td className="text-center py-2 px-0.5 whitespace-nowrap">{s.setsWon}-{s.setsLost}</td>
+                    <td className="text-center py-2 px-0.5 pr-3 whitespace-nowrap">{s.gamesWon}-{s.gamesLost}</td>
                   </tr>
                 );
               })}
