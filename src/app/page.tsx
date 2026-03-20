@@ -19,6 +19,7 @@ export default function Home() {
   );
   const [editingMatch, setEditingMatch] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [openRounds, setOpenRounds] = useState<Set<number>>(new Set([1]));
 
   const fetchMatches = useCallback(async () => {
     try {
@@ -135,11 +136,29 @@ export default function Home() {
           {rounds.map((round) => {
             const roundMatches = matches.filter((m) => m.round === round);
             return (
-              <div key={round} className="mb-6 last:mb-0">
-                <h3 className="text-sm font-bold mb-2" style={{ color: "#14254a" }}>
+              <div key={round} className="mb-4 last:mb-0">
+                <button
+                  onClick={() => setOpenRounds((prev) => {
+                    const next = new Set(prev);
+                    if (next.has(round)) next.delete(round);
+                    else next.add(round);
+                    return next;
+                  })}
+                  className="flex items-center gap-2 w-full text-left text-sm font-bold py-2"
+                  style={{ color: "#14254a" }}
+                >
+                  <svg
+                    width="12" height="12" viewBox="0 0 24 24" fill="currentColor"
+                    className={`transition-transform ${openRounds.has(round) ? "rotate-90" : ""}`}
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
                   Ronde {round}
-                </h3>
-                {roundMatches.map((match) => (
+                  <span className="text-xs font-normal text-gray-400 ml-1">
+                    {roundMatches[0] && formatDate(roundMatches[0].date)}
+                  </span>
+                </button>
+                {openRounds.has(round) && roundMatches.map((match) => (
                   <MatchCard
                     key={match.id}
                     match={match}
